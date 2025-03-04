@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ post.title }}</title>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.description }}</p>
+    <p>Автор: {{ post.author }}</p>
+    <a href="{% url 'post_list' %}">Назад</a>
+</body>
+</html>
