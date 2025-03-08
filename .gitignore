@@ -21,3 +21,4 @@ staticfiles/
 
 # Git
 .git/.DS_Store
+.DS_Store

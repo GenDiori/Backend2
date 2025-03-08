@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ thread.name }}{% endblock %}
+
+{% block content %}
+    <h2>{{ thread.name }}</h2>
+    <p>{{ thread.description }}</p>
+
+    <div class="d-flex gap-2">
+        <a href="{% url 'thread-edit' thread.id %}" class="btn btn-warning">Редактировать</a>
+        <a href="{% url 'thread-delete' thread.id %}" class="btn btn-danger">Удалить</a>
+    </div>
+
+    <hr>
+
+    <h3>Посты в теме</h3>
+    <ul class="list-group">
+        {% for post in posts %}
+            <li class="list-group-item">
+                <h5>{{ post.title }}</h5>
+                <p>{{ post.description }}</p>
+                <small class="text-muted">Автор: {{ post.author }}</small>
+                <div class="mt-2">
+                    <a href="{% url 'post-edit' post.id %}" class="btn btn-sm btn-warning">Редактировать</a>
+                    <a href="{% url 'post-delete' post.id %}" class="btn btn-sm btn-danger">Удалить</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#postModal">
+        Добавить пост
+    </button>
+
+    <!-- Модальное окно для создания Post -->
+    <div class="modal fade" id="postModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Новый пост</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-success">Создать</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
